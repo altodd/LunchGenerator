@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Catamaran', sans-serif;
+    background-color: #121212;
+    color: blueviolet;
+}
+
+html body {
+    margin: 0;
+    padding: 0;
+}
+
+.main-header ul {
+    margin: 0;
+}
+
+.main-header {
+    background-color: rgba(0,0,0,.6);
+    background-image: url('../header-bg.jpg');
+    background-blend-mode: multiply;
+    text-align: center;
+    font-size: 1.1em;
+    background-size: cover;
+    padding-bottom: 30px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+}

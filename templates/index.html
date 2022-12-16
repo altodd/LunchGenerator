@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Let's Decide!</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+</head>
+<body>
+    <header class="main-header">
+        <h1>Decide where to eat</h1>
+        <p>Right now we just generate a random place.<br>
+        Google api doesn't list the restaurant type so to exclude categories we need to fill that data<br></p>
+    </header>
+    <section class="container">
+        <form action="/destination" method="post">
+        <input type="checkbox" id="test1" name="hello" value="world">
+        <label for="test1">I like checking boxes</label><br>
+        <input type="checkbox" id="test2" name="hello" value="davidism">
+        <label for="test2">I really like checking boxes</label><br>
+        <input type="submit" value="Tell me where to eat!"/>
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Let's Decide!</title>
+    <link rel="icon" type="image/png" href="static/icon.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+</head>
+<body>
+    <header class="main-header">
+        <h1>Decide where to eat</h1>
+    </header>
+    <section class="container">
+        You're going to: {{ restaurant }}<br><br><br>
+        <form action="/destination" method="post">
+        <input type="submit" value="Let's try it again" />
+        </form>
+    </section>
+</body>
+</html>

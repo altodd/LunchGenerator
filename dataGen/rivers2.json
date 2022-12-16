@@ -1,0 +1,92 @@
+{
+    "html_attributions": [],
+    "results": [
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": 32.90752419999999,
+                    "lng": -80.0216607
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 32.90890508029148,
+                        "lng": -80.02032946970849
+                    },
+                    "southwest": {
+                        "lat": 32.90620711970848,
+                        "lng": -80.0230274302915
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+            "name": "Church's Chicken",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 3024,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/108715078108737755494\">Evan Guthrie</a>"
+                    ],
+                    "photo_reference": "Aap_uEDfS4MXaHFSPJN0jB4kB5hmQwASsBTBbH_uJQSRpKY2HrfeaKlQKmPgE3MYZrQ5W-bjnTU9cCahhypqMJdMXjoBJJfbnfKSjcv-S7IoSAKZJJEZEgIpwcKkE5Tq5jCfAHjVM1B3B5rP4QyTb9pwWlKZIDKAMDv8JUzCgiIDfsmcm8_t",
+                    "width": 4032
+                }
+            ],
+            "place_id": "ChIJ0cX15pxj_ogRAL2QZPEvGKE",
+            "plus_code": {
+                "compound_code": "WX5H+28 North Charleston, SC, USA",
+                "global_code": "864XWX5H+28"
+            },
+            "price_level": 1,
+            "rating": 3.5,
+            "reference": "ChIJ0cX15pxj_ogRAL2QZPEvGKE",
+            "scope": "GOOGLE",
+            "types": [
+                "restaurant",
+                "food",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 305,
+            "vicinity": "6138 Rivers Avenue, North Charleston"
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": 32.9078147,
+                    "lng": -80.0217284
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 32.9091227802915,
+                        "lng": -80.0203555697085
+                    },
+                    "southwest": {
+                        "lat": 32.9064248197085,
+                        "lng": -80.0230535302915
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+            "name": "Papa Soucy's",
+            "place_id": "ChIJbw1Y6Jxj_ogRC575_gsYdPo",
+            "plus_code": {
+                "compound_code": "WX5H+48 North Charleston, SC, USA",
+                "global_code": "864XWX5H+48"
+            },
+            "reference": "ChIJbw1Y6Jxj_ogRC575_gsYdPo",
+            "scope": "GOOGLE",
+            "types": [
+                "restaurant",
+                "food",
+                "point_of_interest",
+                "establishment"
+            ],
+            "vicinity": "6150 Rivers Avenue, North Charleston"
+        }
+    ],
+    "status": "OK"
+}
