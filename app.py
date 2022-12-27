@@ -21,7 +21,7 @@ def destination():
 
 
 def get_random_restaurant():
-    with open("/home/atodd/website/restaurants.json", "rb") as jsonFile:
+    with open("/app/restaurants.json", "rb") as jsonFile:
         restaurant_list = json.load(jsonFile)
         seed()
         return restaurant_list[randint(0, len(restaurant_list) - 1)]
