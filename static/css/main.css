@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap');
 
 * {
+    margin-top: 0;
     box-sizing: border-box;
     font-family: 'Catamaran', sans-serif;
     background-color: #121212;
-    color: blueviolet;
+    color: #BB86FC;
 }
 
 html body {
@@ -16,7 +17,12 @@ html body {
     margin: 0;
 }
 
+.header-text {
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .main-header {
+    margin-top: 0;
     background-color: rgba(0,0,0,.6);
     background-image: url('../header-bg.jpg');
     background-blend-mode: multiply;
