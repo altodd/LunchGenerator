@@ -4,13 +4,35 @@
     margin-top: 0;
     box-sizing: border-box;
     font-family: 'Catamaran', sans-serif;
-    background-color: #121212;
-    color: #BB86FC;
 }
 
 html body {
+    color: #BB86FC;
+    background-color: #121212;
     margin: 0;
     padding: 0;
+}
+
+.topcontainer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    justify-content: center;
+}
+
+.maps {
+    background-color: unset;
+    width: 75%;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    text-align: right;
 }
 
 .main-header ul {
@@ -33,7 +55,7 @@ html body {
 }
 
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 10px;
+    width: 25%;
+    float: left;
+    text-align: left;
 }

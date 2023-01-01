@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import json
 from random import seed, randint
+import requests
 
 app = Flask(__name__)
 
@@ -15,17 +16,53 @@ def destination():
     if request.method == 'POST':
         print(request.form.getlist('hello'))
 
-    restaurant = get_random_restaurant()
+    restaurant_list = get_all_restaurants(request.form.get('locations'))
+
+    restaurant = get_random_restaurant(restaurant_list)
 
     return render_template('destination.html', restaurant=restaurant["name"])
 
 
-def get_random_restaurant():
-    with open("/app/restaurants.json", "rb") as jsonFile:
-        restaurant_list = json.load(jsonFile)
-        seed()
-        return restaurant_list[randint(0, len(restaurant_list) - 1)]
+def get_all_restaurants(locations):
+    url = "https://api.foursquare.com/v3/places/search"
+
+    headers = {
+        "Accept": "application/json",
+        "Authorization": "fsq3McZkGqug9ranloyP4FvxUCFytNF9AUI3UK04LcLXWOQ="
+    }
+
+    responses = []
+
+    jsonLocations = json.loads(locations)
+
+    for location in jsonLocations:
+        loc_string = str(location["lat"])+","+str(location["lng"])
+
+        params = {
+            "query": "restaurant",
+            "ll": loc_string,
+            "radius": 1605,
+            "limit": "50",
+            "open_now": "true",
+            "sort":"DISTANCE"
+        }
+
+        response = requests.request("GET", url, params=params, headers=headers)
+
+        responses.append(response.text)
+
+    return responses
+
+def get_random_restaurant(json_list):
+    combined_list = []
+    for restaurant_set in json_list:
+        json_list = json.loads(restaurant_set)
+        for json_set in json_list["results"]:
+            combined_list.append(json_set)
+
+    seed()
+    return combined_list[randint(0, len(combined_list) -1)]
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int("80"))
+    app.run(host="0.0.0.0")
