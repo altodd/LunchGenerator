@@ -6,6 +6,10 @@
     font-family: 'Catamaran', sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 html body {
     color: #BB86FC;
     background-color: #121212;
@@ -27,8 +31,8 @@ html body {
 
 .maps {
     background-color: unset;
-    width: 75%;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     float: left;
