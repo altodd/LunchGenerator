@@ -1,9 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, flash, session, redirect, request, render_template, url_for
 import json
 from random import seed, randint
 import requests
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'flask_didnt_like_me_not_having_this_all_of_a_sudden'
 
 
 @app.route('/', methods=['GET'])
@@ -13,11 +14,17 @@ def checkbox_test():
 
 @app.route('/destination', methods=['POST'])
 def destination():
+    session.pop('_flashes', None)
+    
     restaurant_list = get_all_restaurants(request.form.get('locations'))
 
     restaurant = get_random_restaurant(restaurant_list, request.form.getlist('hello'))
 
-    return render_template('destination.html', restaurant=restaurant["name"])
+    if (restaurant == None):
+        flash('No restaurant is open in the area you selected, please choose a new area')
+        return redirect(url_for('checkbox_test'))
+    else:
+        return render_template('destination.html', restaurant=restaurant["name"])
 
 
 def get_all_restaurants(locations):
@@ -59,7 +66,10 @@ def get_random_restaurant(json_list, exclusions):
                 combined_list.append(json_set)
 
     seed()
-    return combined_list[randint(0, len(combined_list) -1)]
+    if (len(combined_list) == 0):
+        return None
+    else:
+        return combined_list[randint(0, len(combined_list) -1)]
 
 
 if __name__ == '__main__':
