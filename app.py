@@ -18,7 +18,7 @@ def destination():
     
     restaurant_list = get_all_restaurants(request.form.get('locations'))
 
-    restaurant = get_random_restaurant(restaurant_list, request.form.getlist('hello'))
+    restaurant = get_random_restaurant(restaurant_list, request.form.getlist('filter'))
 
     if (restaurant == None):
         flash('No restaurant is open in the area you selected, please choose a new area')

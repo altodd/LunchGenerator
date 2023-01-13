@@ -92,9 +92,11 @@ function myMap() {
       var marker = new google.maps.Marker({
         position: e.latLng,
         map: map,
+        title: "Right-Click to remove",
       });
+      
       // Double Clicking a marker will delete it
-      marker.addListener("dblclick", function() {
+      marker.addListener("rightclick", function() {
         // Remove the marker from the local array and then from the map via its map anchor
         remove_marker(position=marker.position);
         marker.setMap(null);
@@ -103,6 +105,16 @@ function myMap() {
       markers.push(e.latLng);
       console.log(markers[0]);
     });
+
+  /** Filter Category Control **/
+  const categoryForm = checkboxDropDown(map=map, 
+                                        title="Categories to exclude", 
+                                        formProps=catFormProp, 
+                                        optionList=filterOptions)
+  // Append the control to the Map
+  map.controls[google.maps.ControlPosition.LEFT_CENTER].push(categoryForm);
+
+  // End of myMap() callback container
 }
 
 function remove_marker(position) {
@@ -113,13 +125,3 @@ function remove_marker(position) {
   }
 }
 
-const form = document.getElementById('checks');
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (markers.length < 1) {
-        alert('Please select at least one area to search');
-        return;
-    }
-    form.elements['locations'].value = JSON.stringify(markers);
-    form.submit();
-});
