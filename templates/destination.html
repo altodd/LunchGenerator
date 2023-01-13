@@ -13,5 +13,13 @@
     <section class="topcontainer">
         You're going to: {{ restaurant }}<br><br><br>
     </section>
+    <section class="topcontainer">
+        <script>
+            function resendForm() {
+                location.reload();
+            }
+        </script>
+        <input id="retry" type="button" value="Try again!" onclick="resendForm();" />
+    </section>
 </body>
 </html>
