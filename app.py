@@ -1,6 +1,7 @@
 from flask import Flask, flash, session, redirect, request, render_template, url_for
 import json
 from random import seed, randint
+from datetime import datetime as dt
 import requests
 
 app = Flask(__name__)
@@ -16,7 +17,7 @@ def checkbox_test():
 def destination():
     session.pop('_flashes', None)
     
-    restaurant_list = get_all_restaurants(request.form.get('locations'))
+    restaurant_list = get_all_restaurants(locations=request.form.get('locations'), otherParams=request.form)
 
     restaurant = get_random_restaurant(restaurant_list, request.form.getlist('filter'))
 
@@ -27,7 +28,7 @@ def destination():
         return render_template('destination.html', restaurant=restaurant["name"])
 
 
-def get_all_restaurants(locations):
+def get_all_restaurants(locations, otherParams:dict):
     url = "https://api.foursquare.com/v3/places/search"
 
     headers = {
@@ -47,10 +48,14 @@ def get_all_restaurants(locations):
             "ll": loc_string,
             "radius": 1605,
             "limit": "50",
-            "open_now": "true",
+            "open_now": "true" if "currentlyOpenBool" in otherParams else "false",
             "sort":"DISTANCE"
         }
+        # Optional Parameters
+        if "priceSlider" in otherParams:
+            params["max_price"] = int(otherParams["priceSlider"])
 
+        print(params)
         response = requests.request("GET", url, params=params, headers=headers)
 
         responses.append(response.text)

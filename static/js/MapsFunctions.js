@@ -106,13 +106,17 @@ function myMap() {
       console.log(markers[0]);
     });
 
-  /** Filter Category Control **/
-  const categoryForm = checkboxDropDown(map=map, 
-                                        title="Categories to exclude", 
-                                        formProps=catFormProp, 
-                                        optionList=filterOptions)
-  // Append the control to the Map
-  map.controls[google.maps.ControlPosition.LEFT_CENTER].push(categoryForm);
+    const form = document.getElementById("checks");
+    // Submitting form requires at least one marker location prior to submission
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (markers.length < 1) {
+          alert('Please select at least one area to search');
+          return;
+      }
+      form.elements['locations'].value = JSON.stringify(markers);
+      form.submit();
+  });
 
   // End of myMap() callback container
 }

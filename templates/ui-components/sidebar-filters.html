@@ -1,0 +1,132 @@
+<style>
+    :root {
+        --dark-color:#1b1b1a;
+    }
+    .bg-cdark {
+        background-color: var(--dark-color);
+    }
+    /* Single-head Slider */
+    .range-wrap {
+        position: relative;
+        margin: 0 auto 3rem;
+    }
+    .range {
+        width: 100%;
+    }
+    .bubble {
+        background: #007bff;
+        color: white;
+        padding: 4px 12px;
+        position: absolute;
+        border-radius: 4px;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    /* Dual-head Slider */
+    #slider-range.ui-widget-content,
+    #slider-range .ui-widget-header {
+        border-radius: 60px;
+        border: none !important;
+        height: 10px !important;
+    }
+    #slider-range .ui-slider-range.ui-corner-all.ui-widget-header {
+        background-color: #007bff;
+    }
+    #slider-range .ui-slider-handle {
+        width: 3em;
+        height: 1.5em;
+        text-align: center;
+    }
+
+    /* Sidebar Toggle */
+    #sidebar-toggler {
+        position: absolute;
+        top: 50%;
+        right: -50px;
+        padding: 10px;
+        border-right: none;
+        border-left: 30px solid var(--dark-color);
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-radius: 0px;
+        height: 85px;
+        /* width: 0; */
+        text-align: center;
+        cursor: pointer;
+        z-index: 5;
+        background: none;
+        transition: 300ms;
+    }
+    #sidebar-toggler:hover {
+        border-left: 30px solid #2f333a;
+        transition: 300ms;
+    }
+</style>
+
+<section id="sidebar-filters" class="h-100">
+    <form action="/destination" method="post" id="checks" class="p-3 text-white h-100 bg-cdark">
+        <!-- Category Filters - Start -->
+        <div class="mb-3">
+            <h5><b>Categories to exclude</b></h5>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Mexican" value="Tex-Mex" name="filter" class="form-check-input">
+                <label for="CC_Mexican" class="form-check-label">Mexican</label>
+            </div>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Seafood" value="Seafood" name="filter" class="form-check-input">
+                <label for="CC_Seafood" class="form-check-label">Seafood</label>
+            </div>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Fast Food" value="Fast Food" name="filter" class="form-check-input" checked>
+                <label for="CC_Fast Food" class="form-check-label">Fast Food</label>
+            </div>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Chinese" value="Chinese" name="filter" class="form-check-input">
+                <label for="CC_Chinese" class="form-check-label">Chinese</label>
+            </div>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Pizza" value="Pizzeria" name="filter" class="form-check-input">
+                <label for="CC_Pizza" class="form-check-label">Pizza</label>
+            </div>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Wings" value="Wings" name="filter" class="form-check-input">
+                <label for="CC_Wings" class="form-check-label">Wings</label>
+            </div>
+            <div class="form-check ml-3 my-1">
+                <input type="checkbox" id="CC_Burgers" value="Burgers" name="filter" class="form-check-input">
+                <label for="CC_Burgers" class="form-check-label">Burgers</label>
+            </div class="form-check">
+        </div>
+        <!-- Category Filters - End -->
+
+        <!-- Price Filter - Start -->
+        <div class="my-3">
+            <h5 class="font-weight-bold mb-1">Price</h5>
+            <div class="range-wrap">
+                <input type="range" class="range" min="1" max="4" value="2" id="priceSlider" name="priceSlider">
+                <output class="bubble"></output>
+            </div>
+        </div>
+        <!-- Price Filter - End -->
+
+        <!-- Hours of Operation (HoP) Filter - Start -->
+        <div class="my-3">
+            <h5 class="font-weight-bold mb-1">Hours of Operation</h5>
+            <div class="form-check m-1">
+                <input type="checkbox" id="CurrentlyOpen" name="currentlyOpenBool" class="form-check-input" checked>
+                <label for="CurrentlyOpen" class="form-check-label">Currently Open</label>
+            </div>
+            <div id="slider-range" class="my-3"></div>
+            <input type="hidden" id="timeSliderRange" name="timeSliderRange">
+        </div>
+        <!-- Hours of Operation (HoP) Filter - End -->
+
+        <input type="hidden" id="locations" name="locations">
+        <div class="row pt-3">
+            <button type="submit" class="btn btn-primary ml-auto mr-3 px-4">Generate!</button>
+        </div>
+    </form>
+
+    <button id="sidebar-toggler"></button>
+</section>

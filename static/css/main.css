@@ -63,3 +63,28 @@ html body {
     float: left;
     text-align: left;
 }
+
+/* Dark-Mode Maps */
+:root {
+    --gm-button-background-color:white;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gm-button-background-color:#1b1b1a;
+    }
+}
+
+#googleMap .gm-control-active,
+#googleMap .gm-style-mtc *, 
+#googleMap .gm-svpc,
+#googleMap .gm-style-iw.gm-style-iw-c,
+#googleMap .gm-style-iw-a * {
+    background-color: var(--gm-button-background-color) !important;
+    color: grey !important;
+}
+
+/* Bootstrap Additions */
+.mw-0 {
+    /* Useful for hiding the sidebar but not its toggle btn */
+    max-width: 0% !important; 
+}
