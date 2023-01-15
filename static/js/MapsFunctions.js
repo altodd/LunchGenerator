@@ -118,6 +118,16 @@ function myMap() {
       form.submit();
   });
 
+  /* Add Generate Map Button */
+  // Create the DIV to hold the control.
+  const centerControlDiv = document.createElement('div');
+  // Create the control.
+  const centerControl = createGenerateBtn(map);
+  // Append the control to the DIV.
+  centerControlDiv.appendChild(centerControl);
+
+  map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(centerControlDiv);
+
   // End of myMap() callback container
 }
 

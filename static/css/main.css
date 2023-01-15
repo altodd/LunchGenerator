@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap');
 
+/* Global Color Vars */
+:root {
+    --dark-color:#1b1b1a;
+    --gray-color:#b9b9b9;
+}
+
 * {
     margin-top: 0;
     box-sizing: border-box;
@@ -80,7 +86,7 @@ html body {
 #googleMap .gm-style-iw.gm-style-iw-c,
 #googleMap .gm-style-iw-a * {
     background-color: var(--gm-button-background-color) !important;
-    color: grey !important;
+    color: var(--gray-color) !important;
 }
 
 /* Bootstrap Additions */

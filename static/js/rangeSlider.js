@@ -57,6 +57,7 @@ $("#CurrentlyOpen").change(function() {
 // Sidebar Toggling
 $("#sidebar-toggler").click(function() {
   $("#sidebar-container").toggleClass("mw-0");
-  $("#checks").toggleClass("d-none")
+  $("#checks").toggleClass("d-none");
+  $("#mapGenBtn").toggleClass("d-none");
   $("#map-container").toggleClass("col-10 col-12");
 });
