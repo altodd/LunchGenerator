@@ -2,6 +2,8 @@
 
 /* Global Color Vars */
 :root {
+    --main-primary:#BB86FC;
+    --main-secondary:#121212;
     --dark-color:#1b1b1a;
     --gray-color:#b9b9b9;
 }
@@ -17,8 +19,8 @@ html, body {
 }
 
 html body {
-    color: #BB86FC;
-    background-color: #121212;
+    color: var(--main-primary);
+    background-color: var(--main-secondary);
     margin: 0;
     padding: 0;
 }
@@ -93,4 +95,17 @@ html body {
 .mw-0 {
     /* Useful for hiding the sidebar but not its toggle btn */
     max-width: 0% !important; 
+}
+.fw-600 {
+    font-weight: 600 !important;
+}
+
+.btn-main {
+    background-color: var(--main-primary) !important;
+    border-color: var(--main-primary) !important;
+    color: var(--main-secondary) !important;
+    font-weight: 600!important;
+}
+.btn-main:hover {
+    filter: brightness(85%);
 }

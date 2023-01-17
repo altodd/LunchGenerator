@@ -85,7 +85,27 @@ function myMap() {
   ],
   };
   
-  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  const map_el = document.getElementById("googleMap");
+  // If the Map DOM element has a location value, center the map on it
+  if(map_el.dataset.coords != null) {
+    let latlong = map_el.dataset.coords;
+    latlong = latlong.split(",").map(Number);
+    console.log(latlong);
+    let centered = {lat: latlong[0], lng: latlong[1]};
+    console.log(centered)
+    mapProp.center = centered;
+    mapProp.zoom = 18;
+    /* Create Map object & Add listeners */
+    var map = new google.maps.Map(map_el,mapProp);
+    var marker = new google.maps.Marker({
+      position: centered,
+      map: map,
+    });
+  }
+  else {
+    /* Create Map object & Add listeners */
+    var map = new google.maps.Map(map_el,mapProp);
+  }
   
   map.addListener("click", (e) => {
       // Create a new marker and add to the current map
@@ -107,26 +127,31 @@ function myMap() {
     });
 
     const form = document.getElementById("checks");
-    // Submitting form requires at least one marker location prior to submission
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (markers.length < 1) {
+    if (form != null) {
+      // Submitting form requires at least one marker location prior to submission
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (markers.length < 1) {
           alert('Please select at least one area to search');
           return;
-      }
-      form.elements['locations'].value = JSON.stringify(markers);
-      form.submit();
-  });
+        }
+        form.elements['locations'].value = JSON.stringify(markers);
+        form.submit();
+      });
+    }
 
   /* Add Generate Map Button */
-  // Create the DIV to hold the control.
-  const centerControlDiv = document.createElement('div');
-  // Create the control.
-  const centerControl = createGenerateBtn(map);
-  // Append the control to the DIV.
-  centerControlDiv.appendChild(centerControl);
+  // Create the generate button if the function is available
+  if (typeof createGenerateBtn === 'function') {
+    // Create the DIV to hold the control.
+    const centerControlDiv = document.createElement('div');
+    // Create the control.
+    const centerControl = createGenerateBtn(map);
+    // Append the control to the DIV.
+    centerControlDiv.appendChild(centerControl);
 
-  map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(centerControlDiv);
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(centerControlDiv);
+  }
 
   // End of myMap() callback container
 }

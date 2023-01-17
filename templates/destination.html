@@ -1,67 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Let's Decide!</title>
-    <link rel="icon" type="image/png" href="static/icon.png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
-    <!-- Bootstrap 4.6.2 - CSS Framework -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-</head>
-<body class="container-fluid d-flex flex-column px-0 h-100">
-    <header class="main-header">
-        <h1>Decide where to eat</h1>
-    </header>
-    <section class="topcontainer row flex-column flex-grow-1 container-fluid">
-        <div class="col-9 order-1">You're going to: {{ restaurant["name"] }}</div>
-        <script>
-            function resendForm() {
-                location.reload();
-            }
-        </script>
-        <div class="col-3 order-12">
-            <input id="retry" type="button" value="Try again!" onclick="resendForm();" />
-        </div>
-    </section>
-    <div class="container-fluid d-flex flex-grow-1 pb-3 h-100">
-      <section class="row flex-grow-1" id="main-content">
-        <section class="col-3">
-            {% if 'display' in restaurant["hours"] %}
-            <div>Hours: {{ restaurant["hours"]["display"] }}</div>
-            {% endif %}
-            {% if 'location' in restaurant %}
-            <div>Address: {{ restaurant["location"]["formatted_address"]}}</div>
-            {% endif %}
-            {% if 'rating' in restaurant %}
-            <div>Rating out of 10: {{ restaurant["rating"] }}</div>
-            {% endif %}
-            {% if 'tel' in restaurant %}
-            <div>Phone Number: {{ restaurant["tel"] }}</div>
-            {% endif %}
-            {% if 'website' in restaurant %}
-            <div>Website: {{ restaurant["website"] }}</div>
-            {% endif %}
-            {% if 'tastes' in restaurant %}
-                <div>The restaurant has the following descriptors:</div>
-                {% for taste in restaurant["tastes"] %}
-                    <div>{{ taste }}</div>
-                {% endfor %}
-            {% endif %}
-        </section>
-        <section class="col-9 h-100">
-            {% if menu == true %}
-                <iframe src="{{ restaurant['menu'] }}" frameborder="0" style="top: 0; bottom: 0; left: 0; right: 0; position: absolute" class="col-12 h-100"></iframe>
-            {% elif website == true %}
-                <iframe src="{{ restaurant['website'] }}" frameborder="0" style="top: 0; bottom: 0; left: 0; right: 0; position: absolute" class="col-12 h-100"></iframe>
-            {% elif 'photos' in restaurant %}
-                <div class="row">
-                {% for photo in restaurant["photos"] %}
-                    <div class="col-3"><img src="{{ photo['prefix'] }}500x600{{ photo['suffix'] }}" class="img-fluid"></div>
-                {% endfor %}
+{% extends 'base.html' %}
+
+{% block title_suffix %} - Destination{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/destination.css') }}" />
+{% endblock %}
+
+{% block content %}
+<section class="topcontainer row container-fluid">
+    <div class="col-9 order-1">
+        <p class="m-0">You're going to:</p>
+        <h3 class="ml-4 my-0">
+            <b>{{ restaurant["name"] }}</b> 
+            <script>
+                function resendForm() {
+                    location.reload();
+                }
+            </script>
+            <button id="retry" type="button" class="btn btn-sm btn-main pt-2" title="Try again!" onclick="resendForm();">
+                <i class="fa-solid fa-shuffle"></i>
+            </button>
+        </h3>
+    </div>
+</section>
+<div class="container-fluid d-flex flex-grow-1 pb-3 h-100">
+  <section class="row flex-grow-1" id="main-content">
+    <section id="place-info" class="col-4 px-2">
+        <div id="general-info" class="dest-group">
+            <div class="dest-gheader">General Information</div>
+            <div class="dest-gcontent">
+                {% if 'display' in restaurant["hours"] %}
+                <div>
+                    <b><i class="fa-regular fa-clock mr-2"></i>Hours</b>
+                    {% set open_hours = restaurant["hours"]["display"].split(';') %}
+                    <ul class="m-0">
+                        {% for item in open_hours %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            {% endif %}
-        </section>
-      </section>
-    </div>      
-</body>
-</html>
+                {% endif %}
+                {% if 'location' in restaurant %}
+                <div>
+                    <b><i class="fa-solid fa-location-dot mr-2"></i> Address</b> 
+                    <a href="https://www.google.com/maps/place/{{ restaurant['location']['formatted_address']}}">{{ restaurant["location"]["formatted_address"]}}</a>
+                </div>
+                {% endif %}
+                {% if 'rating' in restaurant %}
+                <div>
+                    <b><i class="fa-solid fa-star mr-2"></i>Rating out of 10</b>
+                    {{ restaurant["rating"] }}
+                </div>
+                {% endif %}
+                {% if 'tel' in restaurant %}
+                <div>
+                    <b><i class="fa-solid fa-phone mr-2"></i>Phone Number</b> 
+                    {{ restaurant["tel"] }}
+                </div>
+                {% endif %}
+                {% if 'website' in restaurant %}
+                <div>
+                    <b><i class="fa-solid fa-computer mr-2"></i>Website</b> 
+                    <a href="{{ restaurant['website'] }}">{{ restaurant["website"] }}</a>
+                </div>
+                {% endif %}
+                {% if 'tastes' in restaurant %}
+                <div>
+                    <b><i class="fa-solid fa-utensils mr-2"></i>Restaurant Descriptors</b>
+                    <ul class="m-0">
+                        {% for taste in restaurant["tastes"] %}
+                        <li>{{ taste }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% if 'photos' in restaurant and restaurant["photos"]|length > 0 %}
+        <div id="photos" class="dest-group">
+            <div class="dest-gheader">Photos</div>
+            <div class="dest-gcontent row">
+                {% for photo in restaurant["photos"] %}
+                <div class="col-3 p-2"><img src="{{ photo['prefix'] }}500x600{{ photo['suffix'] }}" class="img-fluid"></div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </section>
+    <section class="col-8 h-100 px-2">
+        {% if menu == true %}
+            <iframe src="{{ restaurant['menu'] }}" frameborder="0" style="top: 0; bottom: 0; left: 0; right: 0; position: absolute" class="col-12 h-100"></iframe>
+        {% elif website == true %}
+            <iframe src="{{ restaurant['website'] }}" frameborder="0" style="top: 0; bottom: 0; left: 0; right: 0; position: absolute" class="col-12 h-100"></iframe>
+        {% else %}
+            <div id="map-group" class="dest-group d-flex flex-column h-100 m-0">
+                <div class="dest-gheader">Selected Location</div>
+                <div class="dest-gcontent d-flex flex-fill p-0">
+                    <section id="googleMap" class="maps" {% if 'latlong' in restaurant %}data-coords="{{ restaurant['latlong']['latitude']}},{{ restaurant['latlong']['longitude']}}"{% endif %}></section>
+                </div>
+            </div> 
+        {% endif %}
+    </section>
+  </section>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{{url_for('static', filename='js/MapsFunctions.js')}}"></script>
+{% endblock %}

@@ -1,1 +1,6 @@
+# Python Builds & Caching
 __pycache__/
+
+# Virtual Environments
+*.env
+venv/

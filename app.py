@@ -4,8 +4,13 @@ from random import seed, randint
 from datetime import datetime as dt
 import requests
 
+# pip install python-dotenv
+from dotenv import load_dotenv
+from os import environ as env
+load_dotenv()
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'flask_didnt_like_me_not_having_this_all_of_a_sudden'
+app.config['SECRET_KEY'] = env["FLASK_SECRET_KEY"]
 
 
 @app.route('/', methods=['GET'])
@@ -33,11 +38,10 @@ def destination():
 
 
 def get_all_restaurants(locations, otherParams:dict):
-    url = "https://api.foursquare.com/v3/places/search"
-
+    url = env["FOURSQUARE_ENDPOINT"]+"search"
     headers = {
         "Accept": "application/json",
-        "Authorization": "fsq3McZkGqug9ranloyP4FvxUCFytNF9AUI3UK04LcLXWOQ="
+        "Authorization": env["FOURSQUARE_TOKEN"]
     }
 
     responses = []
@@ -78,14 +82,17 @@ def get_random_restaurant(json_list, exclusions):
     if (len(combined_list) == 0):
         return None
     else:
-        return get_restaurant_details(combined_list[randint(0, len(combined_list) -1)])
+        rand_idx = randint(0, len(combined_list) -1)
+        restaurant_dict = get_restaurant_details(combined_list[rand_idx])
+        restaurant_dict["latlong"] = combined_list[rand_idx]["geocodes"]["main"]
+        return restaurant_dict
 
 def get_restaurant_details(restaurant_obj):
-    url = "https://api.foursquare.com/v3/places/"
+    url = env["FOURSQUARE_ENDPOINT"]
 
     headers = {
         "Accept": "application/json",
-        "Authorization": "fsq3McZkGqug9ranloyP4FvxUCFytNF9AUI3UK04LcLXWOQ="
+        "Authorization": env["FOURSQUARE_TOKEN"]
     }
 
     params = {
@@ -98,14 +105,15 @@ def get_restaurant_details(restaurant_obj):
     return json.loads(response.text)
 
 def check_hotel(restaurant_obj):
-    if "parent" not in restaurant_obj["related_places"]:
+    # Ensure restaurant object exists before checking its subscript component
+    if restaurant_obj is None or "parent" not in restaurant_obj["related_places"]:
         return False
 
-    url = "https://api.foursquare.com/v3/places/" + restaurant_obj["related_places"]["parent"]["fsq_id"]
+    url = env["FOURSQUARE_ENDPOINT"] + restaurant_obj["related_places"]["parent"]["fsq_id"]
 
     headers = {
         "Accept": "application/json",
-        "Authorization": "fsq3McZkGqug9ranloyP4FvxUCFytNF9AUI3UK04LcLXWOQ="
+        "Authorization": env["FOURSQUARE_TOKEN"]
     }
 
     params = {

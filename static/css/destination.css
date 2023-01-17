@@ -1,0 +1,16 @@
+.dest-group {
+    border: 1px solid var(--main-primary);
+    border-radius: 5px;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: block;
+}
+.dest-group > .dest-gheader {
+    background-color: var(--main-primary);
+    color: var(--main-secondary);
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+}
+.dest-group > .dest-gcontent {
+    padding: 1rem;
+}
