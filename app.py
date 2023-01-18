@@ -149,7 +149,7 @@ def test_website(restaurant_obj):
         except:
             return False
         if response.status_code > 400: return False
-        if restaurant_obj["website"][-7:] in response.text: return False
+        #Potentially try and add back some check for handling domain squatting but the check I had was breaking functionality
         if "Index of /" in response.text: return False
         xfo = response.headers.get('X-Frame-Options')
         if xfo is None: return True
