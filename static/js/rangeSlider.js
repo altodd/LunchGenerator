@@ -1,29 +1,28 @@
 // Range (Slider) Tooltip Indicator
-const allRanges = document.querySelectorAll(".range-wrap");
-allRanges.forEach(wrap => {
-  const range = wrap.querySelector(".range");
-  const bubble = wrap.querySelector(".bubble");
-
-  range.addEventListener("input", () => {
-    setBubble(range, bubble, repeat_char="$");
-  });
-  setBubble(range, bubble, repeat_char="$");
+var handle = $( "#custom-handle" );
+$( "#price-slider" ).slider({
+  value:2,
+  min: 1,
+  max: 4,
+  step: 1,
+  orientation: "horizontal",
+  range: "min",
+  create: function() {
+    // handle.text( $( this ).slider( "value" ) );
+    setSliderHandle($( this ).slider( "value" ), handle, repeat_char="$");
+  },
+  slide: function( event, ui ) {
+    setSliderHandle(ui.value, handle, repeat_char="$");
+  }
 });
 
-function setBubble(range, bubble, repeat_char=null) {
-  const val = range.value;
-  const min = range.min ? range.min : 0;
-  const max = range.max ? range.max : 100;
-  const newVal = Number(((val - min) * 100) / (max - min));
+function setSliderHandle(val, handle, repeat_char=null) {
   if (repeat_char == null) {
-    bubble.innerHTML = val;  
+    handle.text( val );  
   }
   else {
-    bubble.innerHTML = repeat_char.repeat(val);
+    handle.text( repeat_char.repeat(val) );
   }
-
-  // Sorta magic numbers based on size of the native UI thumb
-  bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
 // Dual-Handle Slider

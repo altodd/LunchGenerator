@@ -22,6 +22,7 @@ const chicago = { lat: 41.85, lng: -87.65 };
   controlButton.style.padding = '0 15px';
   controlButton.style.textAlign = 'center';
   controlButton.classList.add('d-none');
+  controlButton.classList.add('btn');
 
   controlButton.innerHTML = 'Generate! <i class="fa-solid fa-shuffle ml-2"></i>';
   controlButton.title = 'Click to generate a random restaurant';

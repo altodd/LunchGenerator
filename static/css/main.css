@@ -2,7 +2,7 @@
 
 /* Global Color Vars */
 :root {
-    --main-primary:#BB86FC;
+    --main-primary:#4DA01C;
     --main-secondary:#121212;
     --dark-color:#1b1b1a;
     --gray-color:#b9b9b9;
@@ -108,4 +108,17 @@ html body {
 }
 .btn-main:hover {
     filter: brightness(85%);
+}
+.btn {
+    transition: all 300ms ease-in-out !important;
+}
+.btn-primary {
+    background-color: var(--main-primary) !important;
+    border-color: var(--main-primary) !important;
+    color: var(--main-secondary) !important;
+    font-weight: 600 !important;
+}
+.btn:hover {
+    filter: brightness(85%);
+    transform: translateY(-0.2rem);
 }
