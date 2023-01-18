@@ -34,7 +34,7 @@ def destination():
         flash('No restaurant is open in the area you selected, please choose a new area')
         return redirect(url_for('checkbox_test'))
     else:
-        return render_template('destination.html', restaurant=restaurant, menu=test_menu(restaurant), website=test_website(restaurant))
+        return render_template('destination.html', restaurant=restaurant, menu=test_load(restaurant, "menu"), website=test_load(restaurant, "website"))
 
 
 def get_all_restaurants(locations, otherParams:dict):
@@ -127,25 +127,12 @@ def check_hotel(restaurant_obj):
     else:
         return False
 
-def test_menu(restaurant_obj):
-    if "menu" in restaurant_obj:
+def test_load(restaurant_obj, obj_check):
+    if obj_check in restaurant_obj:
+        if "http://" in restaurant_obj[obj_check]:
+            restaurant_obj[obj_check] = "https" + restaurant_obj[obj_check][4:]
         try:
-            response = requests.request("GET", restaurant_obj["menu"])
-        except:
-            return False
-        if response.status_code == 404: return False
-        xfo = response.headers.get('X-Frame-Options')
-        if xfo is None: return True
-        if( "deny" in xfo.lower() or "sameorigin" in xfo.lower()):
-            return False
-        return True
-    else:
-        return False
-
-def test_website(restaurant_obj):
-    if "website" in restaurant_obj:
-        try:
-            response = requests.request("GET", restaurant_obj["website"])
+            response = requests.request("GET", restaurant_obj[obj_check])
         except:
             return False
         if response.status_code > 400: return False
@@ -158,6 +145,7 @@ def test_website(restaurant_obj):
         return True
     else:
         return False
+        
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
