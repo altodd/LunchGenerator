@@ -122,3 +122,11 @@ html body {
     filter: brightness(85%);
     transform: translateY(-0.2rem);
 }
+.custom-alert {
+    position: absolute !important;
+    left: 25%;
+    right: 25%;
+    top: 5%;
+    text-align: center;
+    z-index: 99;
+}

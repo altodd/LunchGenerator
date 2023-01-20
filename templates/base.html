@@ -12,17 +12,24 @@
     <!-- Font Awesome Icons v6.2.1 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <script>window.alert("{{ message }}");</script>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+
 <body class="container-fluid d-flex flex-column px-0">
     <header class="main-header py-2">
         <h1 class="header-text m-0">Decide where to eat</h1>
     </header>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <div id="content" class="d-flex flex-column flex-grow-1">
         {% block content %}{% endblock %}

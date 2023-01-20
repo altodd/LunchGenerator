@@ -90,9 +90,7 @@ function myMap() {
   if(map_el.dataset.coords != null) {
     let latlong = map_el.dataset.coords;
     latlong = latlong.split(",").map(Number);
-    console.log(latlong);
     let centered = {lat: latlong[0], lng: latlong[1]};
-    console.log(centered)
     mapProp.center = centered;
     mapProp.zoom = 18;
     /* Create Map object & Add listeners */
@@ -123,7 +121,6 @@ function myMap() {
       });
       // Add the new marker to the list of tracked locations
       markers.push(e.latLng);
-      console.log(markers[0]);
     });
 
     const form = document.getElementById("checks");
@@ -132,7 +129,7 @@ function myMap() {
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         if (markers.length < 1) {
-          alert('Please select at least one area to search');
+            $('#alert-no-markers').removeClass('d-none');
           return;
         }
         form.elements['locations'].value = JSON.stringify(markers);
@@ -164,3 +161,7 @@ function remove_marker(position) {
   }
 }
 
+$('#alert-no-markers').on('close.bs.alert', function (event) {
+  event.preventDefault();
+  $(this).addClass('d-none');
+});
