@@ -132,7 +132,7 @@ def test_load(restaurant_obj, obj_check):
         if "http://" in restaurant_obj[obj_check]:
             restaurant_obj[obj_check] = "https" + restaurant_obj[obj_check][4:]
         try:
-            response = requests.request("GET", restaurant_obj[obj_check])
+            response = requests.request("GET", restaurant_obj[obj_check], timeout=2)
         except:
             return False
         if response.status_code > 400: return False

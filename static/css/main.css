@@ -90,6 +90,27 @@ html body {
     background-color: var(--gm-button-background-color) !important;
     color: var(--gray-color) !important;
 }
+/* GMaps Places Details Dialog */
+#googleMap button.gm-ui-hover-effect,
+#googleMap .gm-style-iw-tc {
+    /* bottom triangle marker */
+    background-color: transparent !important;
+}
+#googleMap button.gm-ui-hover-effect::after {
+    content: "x";
+    position: absolute;
+    top: 3px;
+    right: 12px;
+    color: white;
+    font-size: 1rem;
+}
+#googleMap button.gm-ui-hover-effect span {
+    display: none !important;
+}
+#googleMap .gm-style-iw-d {
+    overflow: hidden !important;
+    padding: 0.5rem 1rem 0.5rem 0rem !important;
+}
 
 /* Bootstrap Additions */
 .mw-0 {
