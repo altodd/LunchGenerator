@@ -49,12 +49,15 @@ def get_all_restaurants(locations, otherParams:dict):
     jsonLocations = json.loads(locations)
 
     for location in jsonLocations:
+        if isinstance(location, str):
+            location = json.loads(location)
+        
         loc_string = str(location["lat"])+","+str(location["lng"])
 
         params = {
             "query": "restaurant",
             "ll": loc_string,
-            "radius": 1605,
+            "radius": 1605 if "radius" not in location else int(location["radius"]),
             "limit": "50",
             "open_now": "true" if "currentlyOpenBool" in otherParams else "false",
             "sort":"DISTANCE"

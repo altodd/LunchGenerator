@@ -25,6 +25,10 @@ html body {
     padding: 0;
 }
 
+.text-dew {
+  color: var(--main-primary) !important;
+}
+
 .topcontainer {
     padding-top: 20px;
     padding-bottom: 20px;

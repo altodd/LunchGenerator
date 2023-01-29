@@ -87,7 +87,7 @@ function myMap() {
   
   const map_el = document.getElementById("googleMap");
   // If the Map DOM element has a location value, center the map on it
-  if(map_el.dataset.coords != null) {
+  if(map_el != null && map_el.dataset.coords != null) {
     let latlong = map_el.dataset.coords;
     latlong = latlong.split(",").map(Number);
     let centered = {lat: latlong[0], lng: latlong[1]};
@@ -106,21 +106,23 @@ function myMap() {
   }
   
   map.addListener("click", (e) => {
-      // Create a new marker and add to the current map
-      var marker = new google.maps.Marker({
-        position: e.latLng,
-        map: map,
-        title: "Right-Click to remove",
+      /* Expandable Map Marker Shapes */
+      // Define a rectangle and set its editable property to true.
+      const circle = new google.maps.Circle({
+        center: e.latLng,
+        editable: true,
+        draggable: true,
+        radius: 1_000
       });
-      
-      // Double Clicking a marker will delete it
-      marker.addListener("rightclick", function() {
+
+      circle.setMap(map);
+
+      circle.addListener("rightclick", function() {
         // Remove the marker from the local array and then from the map via its map anchor
-        remove_marker(position=marker.position);
-        marker.setMap(null);
+        remove_marker(position=circle);
+        circle.setMap(null);
       });
-      // Add the new marker to the list of tracked locations
-      markers.push(e.latLng);
+      markers.push(circle);
     });
 
     const form = document.getElementById("checks");
@@ -132,7 +134,13 @@ function myMap() {
             $('#alert-no-markers').removeClass('d-none');
           return;
         }
-        form.elements['locations'].value = JSON.stringify(markers);
+        let locations = [];
+        for (const shape of markers) {
+          let location_dict = JSON.parse(JSON.stringify(shape.center));
+          location_dict["radius"] = shape.radius;
+          locations.push(JSON.stringify(location_dict));
+        }
+        form.elements['locations'].value = JSON.stringify(locations);
         form.submit();
       });
     }
